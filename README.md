@@ -58,12 +58,13 @@ you have to have next things installed:
 During the installation storm package also creates or enables existing storm user.
 
 1. After you install a package - edit the `/etc/storm/storm.yaml` to specify nimbus and zookeeper path.
-2. Start required service with corresponding command
+2. Start required service with corresponding command (TODO: use `# service storm-ui start` ?)
 ```
-#: /etc/init.d/storm-nimbus start
-#: /etc/init.d/storm-ui start
-#: /etc/init.d/storm-supervisor start
-#: /etc/init.d/storm-drpc start
+# /etc/init.d/storm-nimbus start
+# /etc/init.d/storm-ui start
+# /etc/init.d/storm-supervisor start
+# /etc/init.d/storm-drpc start
+# /etc/init.d/storm-logviewer start
 ```
 3. Enable those that you need to start automatically on system restart. (TODO: insert one-liner)
 4. Configure storm the way you need using `/etc/storm/storm_env.ini`.
