@@ -24,6 +24,22 @@ Before you proceed to build a package, you may be interested to keep in mind nex
 * Tutorial how to install storm on .rpm based distibution - [Running multi-node storm cluster by Michael Noll](http://www.michael-noll.com/tutorials/running-multi-node-storm-cluster/)
 * [Forks of storm-deb-packaging scripts that use FPM](https://github.com/phobos182/storm-deb-packaging/network)
 
+## Table of contents:
+* <a href="#building-a-package">Building a package</a>
+  * <a href="#building-a-package-from-storm-snapshot">Creating a package of SNAPSHOT version of storm.</a>
+* <a href="#using-a-package">Using a package:</a>
+  * <a href="#compatibility">Compatibity</a>
+*  <a href="#technical-details">Details</a>
+  * <a href="#multiple-services-in-one-package">Multiple services in one package.</a>
+  * <a href="#storm-home-user-home-and-local-dir">$STORM_HOME, storm user home, and storm.local.dir</a>
+  * <a href="#logging">Logging</a>
+  * <a href="#compile-time-dependencies">Compile time dependencies</a>
+    * <a href="#vagrant">Vagrant (Optional)</a>
+* <a href="#todo">TODO</a>
+* <a href="#license">License</a>
+* <a href="#links">Links</a>
+
+<a name="building-a-package"></a>
 ## Building a package:
 
 1. Clone the repository and edit the `storm-deb-packaging/debian/changelog` to set packaging version/maintainer to your prefered values, so you get contacted if other people will use the package compiled by you.
@@ -36,6 +52,7 @@ $ dpkg -c /vagrant/apache-storm_*_all.deb > SAMPLE_LAYOUT.txt
 ```
 The sample layout can be found in the [SAMPLE_LAYOUT.txt](SAMPLE_LAYOUT.txt) file in repository.
 
+<a name="building-a-package-from-storm-snapshot"></a>
 ### Creating a package of SNAPSHOT version of storm.
 
 Follow instructions in [storm/DEVELOPER.md](https://github.com/apache/storm/blob/master/DEVELOPER.md#packaging) to create a storm distribution.
@@ -48,6 +65,7 @@ Follow instructions in [storm/DEVELOPER.md](https://github.com/apache/storm/blob
 
 Then copy `storm-dist/binary/target/apache-storm-<version>.zip` to `storm-deb-packaging/downloads` and edit the `debian/rules` and `debian/changelog` files to use this zip.
 
+<a name="using-a-package"></a>
 ## Using a package:
 
 According to [official storm guide](https://github.com/nathanmarz/storm/wiki/Setting-up-a-Storm-cluster)
@@ -72,14 +90,17 @@ It is a good idea to use Software Configuration Management tools to manage confi
 
 4. As already mentioned, it is a good idea to use software configuration management tools to manage configuration of storm clusters. Take a look at [saltstack](http://www.saltstack.com/), [ansible](http://www.ansible.com/home), [chef](http://www.getchef.com/chef/), [puppet](https://puppetlabs.com/).
 
-## Compatibity:
+<a name="compatibility"></a>
+### Compatibity:
 
 * This version is intended to be used against apache-storm 0.9.3 and Debian Wheezy. Presumably it can be ran on any other debian-based distribution, because relies only on LSB. It has also upstart's conf files.
 * There are previous versions (up to 0.9.1) built with FPM [here](https://github.com/pershyn/storm-deb-packaging). See tags/branches and forks.
 * This version started from 0.9.2, so you may find interesting configuration in history.
 
+<a name="technical-details"></a>
 ## Details:
 
+<a name="multiple-services-in-one-package"></a>
 ### Multiple services in one package.
 
 The storm distribution can be ran in many roles: supervisor, nimbus, etc. There are two approaches to provide packaged `apache-storm`.
@@ -95,6 +116,7 @@ So we install a package on all of them, and then just enable needed roles using 
 
 To keep the packaging simpler and also because storm is compiled in one jar and reuses a lots of components, the approach of packaging all services in one package is taken.
 
+<a name="storm-home-user-home-and-local-dir"></a>
 ### $STORM_HOME, storm user home, and storm.local.dir.
 
 Basically there are 2 folders (except configs, logs and init scripts):
@@ -164,6 +186,7 @@ is accessible from command line.
 This gives a precise control on configurations, log files and binaries following FHS.
 Also such a schema satisfies both developers and admins paradigms.
 
+<a name="logging"></a>
 ### Logging
 
 By default storm shipped pre-configured to log into ${storm.home}/logs/
@@ -173,17 +196,25 @@ because `${STORM_HOME}/logs/` are symlinked to `/var/log/storm` they end up wher
 
 #Dependencies and Requirements:
 
-### Vagrant (Optional)
+
+
+<a name="compile-time-dependencies"></a>
+### Compile time dependencies:
+
+Provisioning script `bootstrap.sh` installs all needed dependencies for Debian-based distribution to build a package.
+Same script is used to provision Vagrant environment.
+
+<a name="vagrant"></a>
+#### Vagrant (Optional)
 
 The [vagrant-debian-wheezy-64](https://github.com/dotzero/vagrant-debian-wheezy-64)
 scripts were used to create a vagrant box, called `wheezy64`.
-This box is used as a base env to build package.
+This box is used as a base env to build package. You can also use `ubuntu` box.
 
 It is recommended to use vagrant to automatically provision the machine to build
 the script. (relies on `wheezy64`)
 
 ```bash
-
 # prepare and enter vm (debian)
 vagrant up debian
 vagrant ssh debian
@@ -195,13 +226,8 @@ cd /vagrant
 
 Probably the other debian-based distribution can be used as well, if you don't have wheezy box.
 
-### Compile time:
-
-Provisioning script `bootstrap.sh` installs all needed dependencies for Debian-based distribution to build a package.
-Same script is used to provision Vagrant environment.
-
-Things to do:
---------------------
+<a name="todo"></a>
+## TODO:
 
 - Ensure python 2.6.6 and java6/7 are added to package dependencies so they get installed automatically.
 - clean-up storm-local on package removal, so it doesn't collide with further installations
@@ -210,10 +236,12 @@ Things to do:
 - https://wiki.debian.org/MaintainerScripts
 - Setup continious builds for storm-master? Would be cool if I can just download a package and not whole virtual machines and environment, etc.:-)
 
+<a name="license"></a>
 ## License:
 
 [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0), same as Apache Storm project.
 
+<a name="links"></a>
 ## Links:
 
 Also, interesting materials related to this repository.
