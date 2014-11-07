@@ -22,7 +22,7 @@ Before you proceed to build a package, you may be interested to keep in mind nex
 * [Wirbelsturm](https://github.com/miguno/wirbelsturm) - a Vagrant and Puppet based tool to perform 1-click local and remote deployments, with a focus on big data related infrastructure.
 * [storm-deploy](https://github.com/nathanmarz/storm-deploy)
 * Tutorial how to install storm on .rpm based distibution - [Running multi-node storm cluster by Michael Noll](http://www.michael-noll.com/tutorials/running-multi-node-storm-cluster/)
-* [Forks of storm-deb-packaging scripts that use FPM](https://github.com/pershyn/storm-deb-packaging/network)
+* [Forks of storm-deb-packaging scripts that use FPM](https://github.com/phobos182/storm-deb-packaging/network)
 
 ## Building a package:
 
