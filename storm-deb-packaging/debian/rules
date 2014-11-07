@@ -56,11 +56,14 @@ override_dh_auto_clean:
 	@- $(RM) -r target
 
 override_dh_installinit:
-	dh_installinit --no-start --name storm-nimbus
-	dh_installinit --no-start --name storm-supervisor
-	dh_installinit --no-start --name storm-drpc
-	dh_installinit --no-start --name storm-ui
-	dh_installinit --no-start --name storm-logviewer
+  # we want just to copy scripts to appropriate folders and keep them disabled.
+  # insserv or update-rc.d should be called then manually,
+  # depending on which role the node will play.
+	dh_installinit --no-start --name storm-nimbus --update-rcd-params=disable
+	dh_installinit --no-start --name storm-supervisor --update-rcd-params=disable
+	dh_installinit --no-start --name storm-drpc --update-rcd-params=disable
+	dh_installinit --no-start --name storm-ui --update-rcd-params=disable
+	dh_installinit --no-start --name storm-logviewer --update-rcd-params=disable
 
 %:
 	dh $@

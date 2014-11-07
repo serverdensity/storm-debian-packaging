@@ -58,7 +58,9 @@ you have to have next things installed:
 During the installation storm package also creates or enables existing storm user.
 
 1. After you install a package - edit the `/etc/storm/storm.yaml` to specify nimbus and zookeeper path.
-2. Start required service with corresponding command (TODO: use `# service storm-ui start` ?)
+Configure storm the way you need also using `/etc/storm/storm_env.ini`.
+It is a good idea to use Software Configuration Management tools to manage configuration of storm clusters.
+2. Start required service with corresponding command. For example:
 ```
 # /etc/init.d/storm-nimbus start
 # /etc/init.d/storm-ui start
@@ -66,20 +68,32 @@ During the installation storm package also creates or enables existing storm use
 # /etc/init.d/storm-drpc start
 # /etc/init.d/storm-logviewer start
 ```
-3. Enable those that you need to start automatically on system restart. (TODO: insert one-liner)
-4. Configure storm the way you need using `/etc/storm/storm_env.ini`.
-It is a good idea to use Software Configuration Management tools to manage configuration of storm clusters.
-Like [saltstack](http://www.saltstack.com/),
-[chef](http://www.getchef.com/chef/),
-[puppet](https://puppetlabs.com/),
-[ansible](http://www.ansible.com/home).
+3. Enable those that you need to start automatically on system restart using `insserv` or `update-rc.d`. __The current package ensures the storm services are disabled after install. Needed services should be then enabled manually/explicitly.__ Please read below, why it is made so.
+
+4. As already mentioned, it is a good idea to use software configuration management tools to manage configuration of storm clusters. Take a look at [saltstack](http://www.saltstack.com/), [ansible](http://www.ansible.com/home), [chef](http://www.getchef.com/chef/), [puppet](https://puppetlabs.com/).
 
 ## Compatibity:
 
-* This version is intended to be used against 0.9.2 and Debian Wheezy. Presumably it can be ran on any other debian-based distribution, because relies only on LSB. It has also upstart's conf files.
+* This version is intended to be used against apache-storm 0.9.3 and Debian Wheezy. Presumably it can be ran on any other debian-based distribution, because relies only on LSB. It has also upstart's conf files.
 * There are previous versions (up to 0.9.1) built with FPM [here](https://github.com/pershyn/storm-deb-packaging). See tags/branches and forks.
+* This version started from 0.9.2, so you may find interesting configuration in history.
 
 ## Details:
+
+### Multiple services in one package.
+
+The storm distribution can be ran in many roles: supervisor, nimbus, etc. There are two approaches to provide packaged `apache-storm`.
+
+The first one is to have __one package per service__ and common package with common stuff for all services. 6 in total.
+Then 5 packages that will depend on `common` and will provide corresponding
+services each: `storm-supervisor`, `storm-nimbus`, `storm-drpc`, `storm-drpc` and `storm-logviewer`.
+The one, that will be needed on a node, can be then installed.
+
+Another approach is to provide __all services in one package__, and then just enable required depending on the node role.
+For example, we need a cluster of 20 nodes, where 2 of them will provide roles of nimbus and UI.
+So we install a package on all of them, and then just enable needed roles using `insserv` or `update-rc.d`: storm-supervisors on 20 of them, storm-nimbus and storm-ui on 2.
+
+To keep the packaging simpler and also because storm is compiled in one jar and reuses a lots of components, the approach of packaging all services in one package is taken.
 
 ### $STORM_HOME, storm user home, and storm.local.dir.
 
@@ -189,13 +203,12 @@ Same script is used to provision Vagrant environment.
 Things to do:
 --------------------
 
-- [ ] Add instruction about debian insserv in ubuntu
-- [ ] Ensure python 2.6.6 and java6/7 are added to package dependencies so they get installed automatically.
-- [ ] add a note about separate project to 5 packages (common, nimbus, ui, supervisor, logviewer)
-- [ ] clean-up storm-local on package removal, so it doesn't collide with further installations
-- [ ] storm user home??? ($STORM.HOME is owned by root.)
-- [ ] check package installation behavior when home folder exists.
-- [ ] https://wiki.debian.org/MaintainerScripts
+- Ensure python 2.6.6 and java6/7 are added to package dependencies so they get installed automatically.
+- clean-up storm-local on package removal, so it doesn't collide with further installations
+- storm user home??? ($STORM.HOME is owned by root.)
+- check package installation behavior when home folder exists.
+- https://wiki.debian.org/MaintainerScripts
+- Setup continious builds for storm-master? Would be cool if I can just download a package and not whole virtual machines and environment, etc.:-)
 
 ## License:
 
