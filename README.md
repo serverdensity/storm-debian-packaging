@@ -90,6 +90,8 @@ It is a good idea to use Software Configuration Management tools to manage confi
 
 4. As already mentioned, it is a good idea to use software configuration management tools to manage configuration of storm clusters. Take a look at [saltstack](http://www.saltstack.com/), [ansible](http://www.ansible.com/home), [chef](http://www.getchef.com/chef/), [puppet](https://puppetlabs.com/).
 
+5. On updates the package will stop the running services, and also clear the `storm-local` for workers and supervisors, but *will keep `storm-local` for nimbus* in order to awoid implicit killing of the topology (in case the update is done to bugfix-versions). After the update is done, the *services should be enabled*.
+
 <a name="compatibility"></a>
 ### Compatibity:
 
