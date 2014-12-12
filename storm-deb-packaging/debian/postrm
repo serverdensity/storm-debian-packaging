@@ -26,13 +26,21 @@ set -e
 #}
 
 case "$1" in
-  remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)    
+  remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
 
     # discussion why user should NOT be removed when package is uninstalled
     # http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=621833
     # locking account (instead of deleting)
     echo "Locking the storm user account"
     usermod -L -e 1 storm
+
+    # clean up storm-local folder, not to keep state of old supervisor/nimbus
+    echo "Cleaning up storm-local supervisors and workers."
+    if [ -d "/usr/lib/storm/storm-local" ]; then
+      # keep the nimbus state, not kill the topology implicitly
+      rm --force --dir --recursive /usr/lib/storm/storm-local/supervisor
+      rm --force --dir --recursive /usr/lib/storm/storm-local/workers
+    fi
   ;;
 
   purge)

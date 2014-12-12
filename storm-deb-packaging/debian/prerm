@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+
+service storm-nimbus stop
+service storm-supervisor stop
+service storm-drpc stop
+service storm-ui stop
+service storm-logviewer stop
