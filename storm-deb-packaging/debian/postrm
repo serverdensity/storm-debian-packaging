@@ -38,8 +38,8 @@ case "$1" in
     echo "Cleaning up storm-local supervisors and workers."
     if [ -d "/usr/lib/storm/storm-local" ]; then
       # keep the nimbus state, not kill the topology implicitly
-      rm --force --dir --recursive /usr/lib/storm/storm-local/supervisor
-      rm --force --dir --recursive /usr/lib/storm/storm-local/workers
+      rm -rf /usr/lib/storm/storm-local/supervisor
+      rm -rf /usr/lib/storm/storm-local/workers
     fi
   ;;
 
