@@ -1,6 +1,8 @@
 #!/bin/sh
 set -e
 
+STORM_USER_HOME=/usr/lib/storm
+
 # /usr/sbin/adduser --system --home=/usr/lib/storm --gecos=Storm --disabled-password --shell=/bin/bash --group storm
 
 # if there is no storm - create one,
@@ -11,7 +13,7 @@ if ! getent passwd storm > /dev/null; then
   echo "Creating storm user account and group"
   addgroup --quiet storm
 
-  adduser --system --quiet --home /usr/lib/storm --no-create-home \
+  adduser --system --quiet --home $STORM_USER_HOME --no-create-home \
     --shell /bin/bash --ingroup storm \
     --gecos "Storm distributed realtime computation system" storm
 fi
