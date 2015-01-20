@@ -4,7 +4,7 @@
 orig/bin/storm usr/lib/storm/bin
 orig/conf/* etc/storm/
 # skip the examples
-# skip external
+orig/external usr/lib/storm/
 orig/lib usr/lib/storm/
 orig/logback/* etc/storm/
 orig/public usr/lib/storm/
