@@ -19,6 +19,10 @@ export DH_OPTIONS
 # ORIG_PATH points to version that should be built.
 # - !!! Ensure the right version is downloaded below
 # - !!! Ensure the right version is stated in changelog.
+# export ORIG_PATH=apache-storm-0.9.2-incubating
+# export ORIG_PATH=apache-storm-0.9.3-incubating-SNAPSHOT
+# export ORIG_PATH=apache-storm-0.9.3-rc1
+# export ORIG_PATH=apache-storm-0.9.3-rc2-SNAPSHOT
 export ORIG_PATH=apache-storm-0.9.3
 
 override_dh_auto_build:
@@ -29,9 +33,13 @@ override_dh_auto_build:
 	# Ensure apache zip is downloaded to project root `./downloads`
 	# launchpad doesn't resolve hostnames. 192.87.106.229 is www.eu.apache.org
 	#wget -c -P ../downloads http://192.87.106.229/dist/storm/apache-storm-0.9.3/apache-storm-0.9.3.zip
+	# wget -c -P ../downloads http://www.eu.apache.org/dist/incubator/storm/apache-storm-0.9.2-incubating/apache-storm-0.9.2-incubating.zip
+	# wget -c -P ../downloads http://people.apache.org/~ptgoetz/apache-storm-0.9.3-rc1/apache-storm-0.9.3-rc1.zip
 
-	# If snapshot version should be used - comment the line above,
-	# copy required *.zip to `../downloads`
+	wget -c -P ../downloads http://artfiles.org/apache.org/storm/apache-storm-0.9.3/apache-storm-0.9.3.zip
+
+	# If snapshot version should be used - make sure lines above are commented,
+	# copy required *.zip to `../downloads` (manual step)
 	# and change ORIG_PATH and debian/changelog accordingly
 
 	##############################################################################
@@ -53,11 +61,14 @@ override_dh_auto_clean:
 	@- $(RM) -r target
 
 override_dh_installinit:
-	dh_installinit --no-start --name storm-nimbus
-	dh_installinit --no-start --name storm-supervisor
-	dh_installinit --no-start --name storm-drpc
-	dh_installinit --no-start --name storm-ui
-	dh_installinit --no-start --name storm-logviewer
+	# we want just to copy scripts to appropriate folders and keep them disabled.
+	# insserv or update-rc.d should be called then manually,
+	# depending on which role the node will play.
+	dh_installinit --no-start --name storm-nimbus --update-rcd-params=disable
+	dh_installinit --no-start --name storm-supervisor --update-rcd-params=disable
+	dh_installinit --no-start --name storm-drpc --update-rcd-params=disable
+	dh_installinit --no-start --name storm-ui --update-rcd-params=disable
+	dh_installinit --no-start --name storm-logviewer --update-rcd-params=disable
 
 %:
 	dh $@

@@ -1,23 +1,42 @@
 apache-storm (0.9.3-1) precise; urgency=low
 
   * Update with 0.9.3
-    
- -- Pedro Pessoa <pessoa@serverdensity.com>  Tue, 2 Fev 2015 12:07:00 +0000
+
+ -- Pedro Pessoa <pessoa@serverdensity.com>  Tue, 2 Feb 2015 12:07:00 +0000
 
 apache-storm (0.9.2-incubating6) precise; urgency=low
 
   * add external libs to package
-    
+
  -- Pedro Pessoa <pessoa@serverdensity.com>  Tue, 20 Jan 2015 11:07:00 +0000
-     
+
+apache-storm (0.9.3) stable; urgency=low
+
+  * Updated to new storm version (See storm changelog here: /usr/lib/storm/CHANGELOG.md)
+
+ -- Michael Pershyn <michael.pershyn@gmail.com>  Wed, 11 Dec 2014 14:46:12 +0100
+
 apache-storm (0.9.2-incubating5) precise; urgency=low
 
   * setup for ppa:serverdensity - remove wget but include the download and
     extracted storm package
   * based on https://github.com/pershyn/storm-debian-packaging
-    
+
  -- Pedro Pessoa <pessoa@serverdensity.com>  Mon, 10 Nov 2014 12:37:00 +0000
-     
+
+apache-storm (0.9.3-rc2-01) stable; urgency=low
+
+  * Updated to new storm version (See storm changelog here: /usr/lib/storm/CHANGELOG.md)
+
+ -- Michael Pershyn <michael.pershyn@gmail.com>  Wed, 05 Nov 2014 11:55:12 +0100
+
+apache-storm (0.9.3-rc1) stable; urgency=low
+
+  * Updated to new storm version (See storm changelog here: /usr/lib/storm/CHANGELOG.md)
+  * Added storm logviewer init script
+
+ -- Michael Pershyn <michael.pershyn@gmail.com>  Wed, 23 Jul 2014 10:46:16 +0100
+
 apache-storm (0.9.2-incubating) stable; urgency=low
 
   * New packaging for storm. (see /usr/lib/storm/CHANGELOG.md)
