@@ -27,8 +27,8 @@ export ORIG_PATH=apache-storm-0.9.3
 
 override_dh_auto_build:
 
-  # Getting the storm binary distribution.
-  ##############################################################################
+	# Getting the storm binary distribution.
+	##############################################################################
 
 	# Ensure apache zip is downloaded to project root `./downloads`
 	# launchpad doesn't resolve hostnames. 192.87.106.229 is www.eu.apache.org
@@ -45,16 +45,16 @@ override_dh_auto_build:
 	##############################################################################
 
 	# Unpack required zip contents to orig folder.
-	#rm -rf ${ORIG_PATH}
-	#rm -rf orig
+	rm -rf ${ORIG_PATH}
+	rm -rf orig
 
-	#unzip ../downloads/${ORIG_PATH}.zip
-	#mkdir orig
-	#mv ${ORIG_PATH}/* orig
+	unzip ../downloads/${ORIG_PATH}.zip
+	mkdir orig
+	mv ${ORIG_PATH}/* orig
 
-	#rm -rf ${ORIG_PATH}
+	rm -rf ${ORIG_PATH}
 
-	#touch build
+	touch build
 
 override_dh_auto_clean:
 	@- $(RM) build
