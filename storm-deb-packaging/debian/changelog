@@ -1,8 +1,14 @@
+apache-storm (0.9.3-sd1) precise; urgency=low
+
+  * Fixed build.
+
+ -- Carlos Perelló Marín <carlos@serverdensity.com>  Tue, 3 Feb 2015 00:37:06 +0100
+
 apache-storm (0.9.3-1) precise; urgency=low
 
   * Update with 0.9.3
 
- -- Pedro Pessoa <pessoa@serverdensity.com>  Tue, 2 Feb 2015 12:07:00 +0000
+ -- Pedro Pessoa <pessoa@serverdensity.com>  Mon, 2 Feb 2015 12:07:00 +0000
 
 apache-storm (0.9.2-incubating6) precise; urgency=low
 
