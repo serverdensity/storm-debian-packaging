@@ -1,8 +1,20 @@
+apache-storm (0.9.3-sd2.1) precise; urgency=low
+
+  * Tried with another IP address, launchad gives timeout for the other.
+
+ -- Carlos Perelló Marín <carlos@serverdensity.com>  Tue, 03 Feb 2015 01:48:20 +0100
+
+apache-storm (0.9.3-sd2) precise; urgency=low
+
+  * Launchpad is not able to resolve the hostname to download the zip file use IP instead.
+
+ -- Carlos Perelló Marín <carlos@serverdensity.com>  Tue, 03 Feb 2015 01:27:26 +0100
+
 apache-storm (0.9.3-sd1) precise; urgency=low
 
   * Fixed build.
 
- -- Carlos Perelló Marín <carlos@serverdensity.com>  Tue, 3 Feb 2015 00:37:06 +0100
+ -- Carlos Perelló Marín <carlos@serverdensity.com>  Tue, 03 Feb 2015 00:37:06 +0100
 
 apache-storm (0.9.3-1) precise; urgency=low
 
