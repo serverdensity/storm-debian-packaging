@@ -1,3 +1,15 @@
+apache-storm (0.9.3-sd2.3) precise; urgency=low
+
+  * Install only upstart init scripts.
+
+ -- Carlos Perelló Marín <carlos@serverdensity.com>  Wed, 04 Feb 2015 22:05:25 +0100
+
+apache-storm (0.9.3-sd2.2) precise; urgency=low
+
+  * Included Apache binaries in the package source so we don't need to download anything.
+
+ -- Carlos Perelló Marín <carlos@serverdensity.com>  Wed, 04 Feb 2015 22:05:25 +0100
+
 apache-storm (0.9.3-sd2.1) precise; urgency=low
 
   * Tried with another IP address, launchad gives timeout for the other.

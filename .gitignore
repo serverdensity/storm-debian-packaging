@@ -4,7 +4,6 @@ tmp/
 *.changes
 *.deb
 *.dsc
-*.tar.gz
 *.zip
 *.log
 *.substvars

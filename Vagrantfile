@@ -11,7 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       m.vm.synced_folder "~/.vim", "/home/vagrant/.vim"
   end
   config.vm.define "ubuntu" do |m|
-      m.vm.box = "ubuntu/trusty64"
+      m.vm.box = "ubuntu/precise32"
       m.vm.provision "shell", path: "bootstrap.sh"
       m.vm.synced_folder "~/.vim", "/home/vagrant/.vim"
   end
