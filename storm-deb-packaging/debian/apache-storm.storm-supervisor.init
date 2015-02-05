@@ -32,27 +32,26 @@ set -e
 # Set STORM Options
 STORM_CMD="/usr/bin/storm supervisor"
 
-running() {
-  kill -0 `cat ${PID}` > /dev/null 2>&1
-}
-
 case "$1" in
   start)
     echo -n "Starting $DESC: "
-    start-stop-daemon --start --background --quiet --pidfile ${PID} --make-pidfile --chuid ${STORM_USER} --chdir ${STORM_HOME} --exec ${STORM_CMD} || true
+    start-stop-daemon --start --background --pidfile ${PID} --make-pidfile --chuid ${STORM_USER} --chdir ${STORM_HOME} --exec ${STORM_CMD} || true
     echo "$NAME."
     ;;
   stop)
     echo -n "Stopping $DESC: "
-    start-stop-daemon --stop --quiet --pidfile ${PID} --exec ${STORM_CMD} || true
+    # well, well-written programms are taking care of their child processes to be killed when parent process receives kill signal.
+    # but, the storm supervisor does it other way, so instead of just calling
+    # start-stop-daemon --stop --pidfile ${PID} || true
+    # we will have to apply a workaround to take care of all the child processes.
+    kill -2 -- -$(($(ps -o pgid= -p $(cat ${PID}))))
     echo "$NAME."
     ;;
   restart)
-    echo -n "Restarting $DESC: "
-    start-stop-daemon --stop --quiet --pidfile ${PID} --exec ${STORM_CMD} || true
+    $0 stop
+    # another work-around -> we should make sure that process is really stopped before proceeding. start-stop-daemon does that. (on parent process)
     sleep 1
-    start-stop-daemon --start --background --quiet --pidfile ${PID} --make-pidfile --chuid ${STORM_USER} --chdir ${STORM_HOME} --exec ${STORM_CMD} || true
-    echo "$NAME."
+    $0 start
     ;;
   status)
       status_of_proc -p ${PID} $NAME $NAME && exit 0 || exit $?
