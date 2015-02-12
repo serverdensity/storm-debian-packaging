@@ -1,3 +1,9 @@
+apache-storm (0.9.3-sd2.4) precise; urgency=low
+
+  * Install only init.d scripts so limits.conf settings will be used.
+
+ -- Carlos Perelló Marín <carlos@serverdensity.com>  Wed, 04 Feb 2015 22:05:25 +0100
+
 apache-storm (0.9.3-sd2.3) precise; urgency=low
 
   * Install only upstart init scripts.
