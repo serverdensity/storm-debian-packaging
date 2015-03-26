@@ -25,6 +25,9 @@ if [ -f /etc/default/storm-ui ] ; then
     . /etc/default/storm-ui
 fi
 
+# Exit if explicitly told to
+[ "$ENABLE" != "0" ] || exit 0
+
 set -e
 
 . /lib/lsb/init-functions

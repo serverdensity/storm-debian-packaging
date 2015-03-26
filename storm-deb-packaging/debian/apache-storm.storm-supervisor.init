@@ -25,6 +25,9 @@ if [ -f /etc/default/storm-supervisor ] ; then
     . /etc/default/storm-supervisor
 fi
 
+# Exit if explicitly told to
+[ "$ENABLED" != "0" ] || exit 0
+
 set -e
 
 . /lib/lsb/init-functions
