@@ -23,7 +23,7 @@ export DH_OPTIONS
 # export ORIG_PATH=apache-storm-0.9.3-incubating-SNAPSHOT
 # export ORIG_PATH=apache-storm-0.9.3-rc1
 # export ORIG_PATH=apache-storm-0.9.3-rc2-SNAPSHOT
-export ORIG_PATH=apache-storm-0.9.3
+export ORIG_PATH=apache-storm-0.9.4
 
 override_dh_auto_build:
 

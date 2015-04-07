@@ -1,3 +1,9 @@
+apache-storm (0.9.4-sd0.1) precise; urgency=low
+
+  * Updated to new storm version (See storm changelog here: /usr/lib/storm/CHANGELOG.md)
+
+ -- Carlos Perelló Marín <carlos@serverdensity.com>  Tue, 07 Apr 2015 13:37:28 +0200
+
 apache-storm (0.9.3-sd3.1) precise; urgency=low
 
   * By default all services are disabled.
